@@ -13,7 +13,7 @@ const allowedOrigins = [
   'http://127.0.0.1:3001',
   'http://localhost:3001',
   'https://thedantsarena.com.ng',
-  'https://wwww.thedantsarena.com.ng',
+  'https://www.thedantsarena.com.ng',
   'https://dants-arena.netlify.app'
 ];
 
