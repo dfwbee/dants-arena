@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://dants-arena.up.railway.app/api';
 const LOGIN_PAGE = 'login.html';
 const PUBLIC_HOME_PAGE = 'index.html';
 const DEFAULT_AUTHENTICATED_PAGE = 'dashboard.html';
