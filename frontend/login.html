@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In — Dants Arena</title>
+
+  <!-- Redirect already-logged-in users to their next destination -->
+  <script>
+    (function () {
+      if (localStorage.getItem('dantsToken') && localStorage.getItem('dantsUser')) {
+        const params = new URLSearchParams(window.location.search);
+        const next = params.get('next');
+        if (next && !next.startsWith('http://') && !next.startsWith('https://') && !next.startsWith('//')) {
+          try {
+            window.location.replace(decodeURIComponent(next));
+            return;
+          } catch (error) {}
+        }
+        window.location.replace('dashboard.html');
+      }
+    })();
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* ── Layout ── */
+    .auth-page {
+      min-height: 100vh;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    /* ── Left branding panel ── */
+    .auth-brand-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 64px 56px;
+      background: linear-gradient(160deg, #070d08 0%, #0d1f11 60%, #071008 100%);
+      border-right: 1px solid rgba(0, 230, 118, 0.1);
+      overflow: hidden;
+    }
+
+    .auth-brand-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 80%, rgba(0, 230, 118, 0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .auth-pitch-svg {
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 420px;
+      height: 280px;
+      opacity: 0.05;
+    }
+
+    .auth-tagline {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(2.8rem, 4.5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: -1px;
+      color: #fff;
+      margin: 36px 0 20px;
+    }
+
+    .auth-tagline .green  { color: #00E676; }
+    .auth-tagline .outline {
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+      color: transparent;
+    }
+
+    .auth-desc {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.45);
+      max-width: 340px;
+      margin-bottom: 36px;
+    }
+
+    .auth-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .auth-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #00E676;
+      background: rgba(0, 230, 118, 0.07);
+      border: 1px solid rgba(0, 230, 118, 0.2);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    /* ── Right form panel ── */
+    .auth-form-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 64px 48px;
+      overflow-y: auto;
+      min-height: 0;
+      min-width: 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      margin: auto 0;
+    }
+
+    .auth-card h3 {
+      font-family: 'Anton', sans-serif;
+      font-size: 2rem;
+      line-height: 1.05;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .auth-card h3 span { color: #00E676; }
+
+    .auth-footer-note {
+      margin-top: 32px;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 800px) {
+      .auth-page          { grid-template-columns: 1fr; height: auto; overflow: visible; }
+      .auth-brand-panel   { padding: 40px 28px 32px; min-height: auto; }
+      .auth-tagline       { font-size: 2.4rem; margin: 24px 0 14px; }
+      .auth-form-panel    { padding: 40px 24px 56px; justify-content: flex-start; overflow: visible; }
+      .auth-card          { margin: 0; }
+      .auth-pitch-svg     { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-page">
+
+    <!-- ── Left: Branding ────────────────────────────── -->
+    <div class="auth-brand-panel">
+
+      <!-- Pitch diagram watermark -->
+      <svg class="auth-pitch-svg" viewBox="0 0 400 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="380" height="240" rx="4" stroke="#00E676" stroke-width="3"/>
+        <line x1="200" y1="10" x2="200" y2="250" stroke="#00E676" stroke-width="2"/>
+        <circle cx="200" cy="130" r="40" stroke="#00E676" stroke-width="2"/>
+        <rect x="10" y="80" width="60" height="100" stroke="#00E676" stroke-width="2"/>
+        <rect x="330" y="80" width="60" height="100" stroke="#00E676" stroke-width="2"/>
+        <rect x="10" y="100" width="30" height="60" stroke="#00E676" stroke-width="2"/>
+        <rect x="360" y="100" width="30" height="60" stroke="#00E676" stroke-width="2"/>
+        <circle cx="200" cy="130" r="3" fill="#00E676"/>
+        <circle cx="80"  cy="130" r="3" fill="#00E676"/>
+        <circle cx="320" cy="130" r="3" fill="#00E676"/>
+      </svg>
+
+      <!-- Logo -->
+      <a href="index.html" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">⚽</div>
+        <div>
+          <div class="logo-text">DANTS<span>.</span></div>
+          <div class="logo-sub">Arena · Abeokuta</div>
+        </div>
+      </a>
+
+      <!-- Tagline -->
+      <div class="auth-tagline">
+        PLAY<br/>
+        <span class="outline">HARD.</span><br/>
+        <span class="green">WIN</span><br/>
+        <span class="outline">LOUDER.</span>
+      </div>
+
+      <p class="auth-desc">
+        Abeokuta's premier 5-a-side football arena.
+        Book your pitch, join a membership, and be part of something legendary.
+      </p>
+
+      <div class="auth-badges">
+        <span class="auth-badge">⚽ 5-A-Side Pitch</span>
+        <span class="auth-badge">📍 Abeokuta</span>
+        <span class="auth-badge">🕐 6 AM – 10 PM</span>
+      </div>
+    </div>
+
+    <!-- ── Right: Forms ──────────────────────────────── -->
+    <div class="auth-form-panel">
+      <div class="auth-card">
+
+        <!-- Login form -->
+        <form id="login-form" style="display:flex;flex-direction:column;gap:14px;">
+          <h3>Welcome<br/><span>Back.</span></h3>
+          <p class="modal-sub">Log in to your Dants Arena account.</p>
+
+          <div class="form-group">
+            <label>Username or Email</label>
+            <input id="login-email" type="text" placeholder="yourname or you@email.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input id="login-password" type="password" placeholder="••••••••" required/>
+          </div>
+
+          <button type="submit" class="btn btn-green" style="width:100%;padding:14px;margin-top:4px;">
+            Log In →
+          </button>
+          <p class="modal-footer-text">
+            New here? <a onclick="showForm('signup')" style="cursor:pointer;">Create an account</a>
+          </p>
+          <p class="modal-footer-text">
+            Need another verification email? <a href="#" data-resend-verification style="cursor:pointer;">Resend verification</a>
+          </p>
+        </form>
+
+        <!-- Signup form -->
+        <form id="signup-form" style="display:none;flex-direction:column;gap:14px;">
+          <h3>Join<br/><span>Dants.</span></h3>
+          <p class="modal-sub">Create your free account and start booking.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input id="signup-firstname" type="text" placeholder="Tunde" required/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input id="signup-lastname" type="text" placeholder="Adeyemi" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Username</label>
+            <input id="signup-username" type="text" placeholder="tunde.ade" required/>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input id="signup-email" type="email" placeholder="you@email.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input id="signup-phone" type="tel" placeholder="+234 800 000 0000"/>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input id="signup-password" type="password" placeholder="At least 6 characters" required/>
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input id="signup-confirm" type="password" placeholder="Repeat your password" required/>
+          </div>
+
+          <button type="submit" class="btn btn-green" style="width:100%;padding:14px;margin-top:4px;">
+            Create Account →
+          </button>
+          <p class="modal-footer-text">
+            Already a member? <a onclick="showForm('login')" style="cursor:pointer;">Log in</a>
+          </p>
+          <p class="modal-footer-text">We’ll email you a verification link before you can log in.</p>
+        </form>
+
+      </div>
+
+      <p class="auth-footer-note">© 2025 DANTS ARENA · ABEOKUTA, NIGERIA · <a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></p>
+    </div>
+
+  </div>
+
+  <script src="api.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

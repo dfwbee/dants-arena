@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events — Dants Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="events.css"/>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">⚽</div>
+      <div>
+        <div class="logo-text">DANTS<span>.</span></div>
+        <div class="logo-sub">Arena · Abeokuta</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="booking.html">Book a Pitch</a></li>
+      <li><a href="membership.html">Memberships</a></li>
+      <li><a href="events.html" class="nav-active">Events</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" onclick="openModal('login')">Log In</button>
+      <button class="btn btn-green" onclick="openModal('signup')">Join Now</button>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="hero-label">What's On at Dants Arena</div>
+      <h1>EVENTS<br/><span class="green-text">CALENDAR</span></h1>
+      <p>Tournaments, leagues, watch parties, and more. Don't miss a thing.</p>
+    </div>
+  </div>
+
+  <div class="events-wrapper">
+
+  
+    <div class="filter-bar reveal">
+      <div class="filter-label">Filter by:</div>
+      <div class="filter-chips">
+        <div class="chip active" onclick="filterEvents(this, 'all')">All Events</div>
+        <div class="chip" onclick="filterEvents(this, 'tournament')">🏆 Tournament</div>
+        <div class="chip" onclick="filterEvents(this, 'league')">⚽ League</div>
+        <div class="chip" onclick="filterEvents(this, 'viewing')">📺 Watch Party</div>
+        <div class="chip" onclick="filterEvents(this, 'training')">🎯 Training</div>
+        <div class="chip" onclick="filterEvents(this, 'social')">🎉 Social</div>
+      </div>
+    </div>
+
+    <div class="events-layout">
+
+      
+      <div class="calendar-panel reveal">
+        <div class="cal-header">
+          <button class="cal-nav-btn" onclick="changeMonth(-1)">←</button>
+          <div class="cal-month-label" id="cal-month-label">March 2025</div>
+          <button class="cal-nav-btn" onclick="changeMonth(1)">→</button>
+        </div>
+        <div class="cal-day-names">
+          <div>Sun</div><div>Mon</div><div>Tue</div>
+          <div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+        <div class="cal-grid" id="cal-grid"></div>
+        <div class="cal-legend">
+          <div class="legend-item"><div class="legend-dot"></div> Has events</div>
+          <div class="legend-item"><div class="legend-dot today-dot"></div> Today</div>
+          <div class="legend-item"><div class="legend-dot selected-dot"></div> Selected</div>
+        </div>
+      </div>
+
+      
+      <div class="events-list-panel">
+        <div class="events-list-header reveal">
+          <h2 id="events-list-title">All Upcoming Events</h2>
+          <span class="events-count" id="events-count">0 events</span>
+        </div>
+        <div class="events-list" id="events-list"></div>
+      </div>
+
+    </div>
+
+
+    <div class="featured-banner reveal">
+      <div class="featured-inner">
+        <div class="featured-badge">🔥 Featured Event</div>
+        <h2>Dants Arena <span class="green-text">5-A-Side Cup</span></h2>
+        <p>Our biggest tournament of the quarter. 16 teams. One champion. Register your team now before slots fill up.</p>
+        <div class="featured-meta">
+          <span>📅 March 28, 2025</span>
+          <span>🕐 9:00 AM – 6:00 PM</span>
+          <span>📍 Dants Arena, Abeokuta</span>
+          <span>🏆 Prize: ₦150,000</span>
+        </div>
+        <button class="btn btn-green btn-lg" onclick="showToast('🎉 Registration submitted! We\'ll contact you soon.')">Register Your Team →</button>
+      </div>
+      <div class="featured-art">🏆</div>
+    </div>
+
+  </div>
+
+  <div class="modal-overlay" id="event-modal-overlay">
+    <div class="modal event-modal">
+      <button class="modal-close" onclick="closeEventModal()">×</button>
+      <div class="event-modal-tag" id="em-tag">Tournament</div>
+      <h3 id="em-title">Event Title</h3>
+      <p class="modal-sub" id="em-desc">Event description goes here.</p>
+      <div class="event-modal-meta">
+        <div class="em-meta-row"><span>📅</span><span id="em-date">—</span></div>
+        <div class="em-meta-row"><span>🕐</span><span id="em-time">—</span></div>
+        <div class="em-meta-row"><span>📍</span><span>Dants Arena, Abeokuta</span></div>
+        <div class="em-meta-row"><span>🎟️</span><span id="em-price">—</span></div>
+        <div class="em-meta-row"><span>👥</span><span id="em-spots">—</span></div>
+      </div>
+      <button class="btn btn-green" style="width:100%;padding:14px;margin-top:8px;" id="em-cta" onclick="registerEvent()">Register Now →</button>
+    </div>
+  </div>
+
+  
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <form id="login-form" style="display:flex; flex-direction:column; gap:14px;">
+        <h3>Welcome<br/><span>Back.</span></h3>
+        <p class="modal-sub">Log in to your Dants Arena account.</p>
+        <div class="form-group">
+          <label>Username or Email</label>
+          <input id="login-email" type="text" placeholder="yourname or you@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="login-password" type="password" placeholder="••••••••" required/>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:14px;">Log In →</button>
+        <p class="modal-footer-text">New here? <a onclick="showForm('signup')" style="cursor:pointer;">Create an account</a></p>
+      </form>
+
+      <form id="signup-form" style="display:none; flex-direction:column; gap:14px;">
+        <h3>Join<br/><span>Dants.</span></h3>
+        <p class="modal-sub">Create your free account and start booking.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input id="signup-firstname" type="text" placeholder="Tunde" required/>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input id="signup-lastname" type="text" placeholder="Adeyemi" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input id="signup-username" type="text" placeholder="tunde.ade" required/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input id="signup-email" type="email" placeholder="you@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input id="signup-phone" type="tel" placeholder="+234 800 000 0000"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="signup-password" type="password" placeholder="At least 6 characters" required/>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input id="signup-confirm" type="password" placeholder="Repeat your password" required/>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:14px;">Create Account →</button>
+        <p class="modal-footer-text">Already a member? <a onclick="showForm('login')" style="cursor:pointer;">Log in</a></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="api.js"></script>
+<script src="script.js"></script>
+  <script src="events.js"></script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dants Arena — Abeokuta's Premier Football Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-icon">⚽</div>
+      <div>
+        <div class="logo-text">DANTS<span>.</span></div>
+        <div class="logo-sub">Arena · Abeokuta</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#facilities">Facilities</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" onclick="openModal('login')">Log In</button>
+      <button class="btn btn-green" onclick="openModal('signup')">Join Now</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="pitch-bg"></div>
+    <div class="pitch-lines"></div>
+    <div class="pitch-center"></div>
+    <div class="ball">⚽</div>
+    <div class="hero-inner">
+      <div class="hero-label">Abeokuta's No.1 Football Arena</div>
+      <h1>
+        PLAY<br/>
+        <span class="outline">HARD.</span><br/>
+        <span class="green">WIN</span><br/>
+        <span class="outline">LOUDER.</span>
+      </h1>
+      <p class="hero-desc">
+        Dants Arena is Abeokuta's premier 5-a-side football facility.
+        Book your pitch, join a membership, and be part of something legendary.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-green btn-lg" onclick="openModal('signup')">Book a Pitch →</button>
+        <button class="btn btn-ghost btn-lg" onclick="document.getElementById('facilities').scrollIntoView({behavior:'smooth'})">Explore Facility</button>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item">Dants Arena <span class="ticker-dot"></span></span>
+      <span class="ticker-item">5-A-Side Football <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Abeokuta, Ogun State <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Book Online <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Join a Membership <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Tournaments &amp; Events <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Gym · Coming Soon <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Lounge · Coming Soon <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Viewing Center · Coming Soon <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Bar & Refreshments · Coming Soon <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Dants Arena <span class="ticker-dot"></span></span>
+      <span class="ticker-item">5-A-Side Football <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Abeokuta, Ogun State <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Book Online <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Join a Membership <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Tournaments &amp; Events <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Gym · Coming Soon <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Lounge · Coming Soon <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Viewing Center · Coming Soon <span class="ticker-dot"></span></span>
+      <span class="ticker-item">Bar & Refreshments · Coming Soon <span class="ticker-dot"></span></span>
+    </div>
+  </div>
+
+  <section id="about" class="about-strip">
+    <div class="about-left reveal">
+      <div class="section-label">About Dants Arena</div>
+      <h2>More Than<br/>A <em>Pitch.</em><br/>It's A<br/><em>Movement.</em></h2>
+      <p>
+        Founded in the heart of Abeokuta, Dants Arena was built for the love of the game.
+        Whether you're a weekend warrior, a serious league player, or a team looking for a home —
+        our world-class 5-a-side pitch is ready for you.<br/><br/>
+        With a gym and a premium lounge on the way, Dants Arena is building Abeokuta's greatest sports hub.
+      </p>
+    </div>
+    <div class="about-right reveal">
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num">1</div>
+          <div class="stat-desc">Premium Pitch</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5<span class="stat-unit">v5</span></div>
+          <div class="stat-desc">Format</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">6<span class="stat-unit">AM</span></div>
+          <div class="stat-desc">Opens Daily</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">10<span class="stat-unit">PM</span></div>
+          <div class="stat-desc">Last Booking</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="facilities" class="section">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-label">What We Offer</div>
+        <h2>Our<br/><span>Facilities</span></h2>
+      </div>
+      <p class="section-head-desc">Built to international standards. Maintained to perfection. Ready when you are.</p>
+    </div>
+    <div class="facilities-grid">
+      <div class="facility facility-main reveal">
+        <div class="pitch-diagram">
+          <svg viewBox="0 0 400 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="380" height="240" rx="4" stroke="#00E676" stroke-width="3"/>
+            <line x1="200" y1="10" x2="200" y2="250" stroke="#00E676" stroke-width="2"/>
+            <circle cx="200" cy="130" r="40" stroke="#00E676" stroke-width="2"/>
+            <rect x="10" y="80" width="60" height="100" stroke="#00E676" stroke-width="2"/>
+            <rect x="330" y="80" width="60" height="100" stroke="#00E676" stroke-width="2"/>
+            <rect x="10" y="100" width="30" height="60" stroke="#00E676" stroke-width="2"/>
+            <rect x="360" y="100" width="30" height="60" stroke="#00E676" stroke-width="2"/>
+            <circle cx="200" cy="130" r="3" fill="#00E676"/>
+            <circle cx="80" cy="130" r="3" fill="#00E676"/>
+            <circle cx="320" cy="130" r="3" fill="#00E676"/>
+          </svg>
+        </div>
+        <div class="facility-label">Main Arena</div>
+        <h3>5-A-Side<br/>Football Pitch</h3>
+        <p>Premium astroturf surface with full LED floodlights, professional goal posts, and a high-grip pitch boundary.</p>
+        <div class="facility-badge">Available Now</div>
+      </div>
+      <div class="facility facility-small reveal">
+        <div class="f-icon">💪</div>
+        <div>
+          <div class="facility-label">Coming Soon</div>
+          <h3>Gym</h3>
+          <p>State-of-the-art equipment and personal training.</p>
+        </div>
+        <div class="facility-badge soon">Opening Soon</div>
+      </div>
+      <div class="facility facility-small reveal">
+        <div class="f-icon">🛋️</div>
+        <div>
+          <div class="facility-label">Coming Soon</div>
+          <h3>Members Lounge</h3>
+          <p>Premium space to relax, meet, and recover.</p>
+        </div>
+        <div class="facility-badge soon">Opening Soon</div>
+      </div>
+      <div class="facility facility-small reveal">
+        <div class="f-icon">🚿</div>
+        <div>
+          <div class="facility-label">Included</div>
+          <h3>Changing Rooms</h3>
+          <p>Clean, secure changing rooms and showers for all players.</p>
+        </div>
+        <div class="facility-badge">Coming Soon</div>
+      </div>
+      <div class="facility facility-small reveal">
+        <div class="f-icon">🚗</div>
+        <div>
+          <div class="facility-label">Included</div>
+          <h3>Free Parking</h3>
+          <p>Spacious, secure car park for all members and visitors.</p>
+        </div>
+        <div class="facility-badge">Available Now</div>
+      </div>
+    </div>
+    <div>
+      <div class="facility facility-small reveal">
+        <div class="f-icon">📺</div>
+        <div>
+          <div class="facility-label">Coming Soon</div>
+          <h3>Viewing Center</h3>
+          <p>Watch live matches on big screens in a premium setup.</p>
+        </div>
+        <div class="facility-badge soon">Opening Soon</div>
+      </div>
+      <div class="facility facility-small reveal">
+        <div class="f-icon">🍻</div>
+        <div>
+          <div class="facility-label">Coming Soon</div>
+          <h3>Bar & Refreshments</h3>
+          <p>Cold drinks, snacks, and good vibes after the game.</p>
+        </div>
+        <div class="facility-badge soon">Opening Soon</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="steps-section">
+    <div class="section-head reveal">
+      <div>
+        <div class="section-label">Simple Process</div>
+        <h2>How It<br/><span class="green-text">Works</span></h2>
+      </div>
+    </div>
+    <div class="steps-grid reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">📱</div>
+        <h3>Create Account</h3>
+        <p>Sign up in under 60 seconds. No paperwork, no queues.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">📅</div>
+        <h3>Pick Your Slot</h3>
+        <p>Browse real-time availability and choose your date and time.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">💳</div>
+        <h3>Pay Online</h3>
+        <p>Secure payment via card or transfer. Instant confirmation.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-icon">📲</div>
+        <h3>Show QR &amp; Play</h3>
+        <p>Get your QR code. Scan at reception. Then just play.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <h2>BOOK<br/><span class="outline">YOUR</span><br/>PITCH</h2>
+    <p>Don't wait. Premium slots fill up fast. Reserve your time at Dants Arena today.</p>
+    <div class="btn-group">
+      <button class="btn btn-green btn-lg" onclick="openModal('signup')">Get Started — It's Free</button>
+      <button class="btn btn-ghost btn-lg">Learn About Memberships</button>
+    </div>
+    <div class="cta-location">📍 Located in <span>Abeokuta, Ogun State, Nigeria</span></div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon">⚽</div>
+          <div>
+            <div class="logo-text">DANTS<span>.</span></div>
+            <div class="logo-sub">Arena · Abeokuta</div>
+          </div>
+        </div>
+        <p>Abeokuta's premier 5-a-side football arena. A place for players, teams, and champions.</p>
+        <div class="footer-socials">
+          <a class="social-btn" href="#">IG</a>
+          <a class="social-btn" href="#">FB</a>
+          <a class="social-btn" href="#">𝕏</a>
+          <a class="social-btn" href="#">WA</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="#">Home</a>
+        <a href="#">Book a Pitch</a>
+        <a href="#">Memberships</a>
+        <a href="#">Events</a>
+      </div>
+      <div class="footer-col">
+        <h4>Facilities</h4>
+        <a href="#">5-A-Side Pitch</a>
+        <a href="#">Gym (Soon)</a>
+        <a href="#">Lounge (Soon)</a>
+        <a href="#">Changing Rooms</a>
+        <a href="#">Free Parking</a>
+        <a href="#">Viewing Center (Soon)</a>
+        <a href="#">Bar (Soon)</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="#">📍 Abeokuta, Ogun State</a>
+        <a href="#">📞 +234 800 000 0000</a>
+        <a href="#">✉️ hello@dantsarena.ng</a>
+        <a href="#">🕐 6:00 AM – 10:00 PM</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2025 <span>Dants Arena</span>. All rights reserved.</div>
+      <div><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></div>
+    </div>
+  </footer>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <form id="login-form" style="display:flex; flex-direction:column; gap:14px;">
+        <h3>Welcome<br/><span>Back.</span></h3>
+        <p class="modal-sub">Log in to your Dants Arena account.</p>
+        <div class="form-group">
+          <label>Username or Email</label>
+          <input id="login-email" type="text" placeholder="yourname or you@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="login-password" type="password" placeholder="••••••••" required/>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:14px;">Log In →</button>
+        <p class="modal-footer-text">New here? <a onclick="showForm('signup')" style="cursor:pointer;">Create an account</a></p>
+      </form>
+
+      <form id="signup-form" style="display:none; flex-direction:column; gap:14px;">
+        <h3>Join<br/><span>Dants.</span></h3>
+        <p class="modal-sub">Create your free account and start booking.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input id="signup-firstname" type="text" placeholder="Tunde" required/>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input id="signup-lastname" type="text" placeholder="Adeyemi" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input id="signup-username" type="text" placeholder="tunde.ade" required/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input id="signup-email" type="email" placeholder="you@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input id="signup-phone" type="tel" placeholder="+234 800 000 0000"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="signup-password" type="password" placeholder="At least 6 characters" required/>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input id="signup-confirm" type="password" placeholder="Repeat your password" required/>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:14px;">Create Account →</button>
+        <p class="modal-footer-text">Already a member? <a onclick="showForm('login')" style="cursor:pointer;">Log in</a></p>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

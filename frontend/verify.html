@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verify Email - Dants Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .verify-page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 96px 24px 40px;
+    }
+
+    .verify-card {
+      width: min(100%, 520px);
+      background: var(--bg2);
+      border: 1px solid var(--border-dim);
+      border-radius: 18px;
+      padding: 36px 32px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+    }
+
+    .verify-card h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .verify-card p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+
+    .verify-status {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 18px;
+    }
+
+    .verify-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="verify-page">
+    <div class="verify-card">
+      <div class="verify-status" id="verify-status">Checking link</div>
+      <h1 id="verify-title">Verifying your email</h1>
+      <p id="verify-message">Please wait while we confirm your Dants Arena account.</p>
+      <div class="verify-actions" id="verify-actions" style="display:none;">
+        <a href="login.html" class="btn btn-green">Go to Login</a>
+        <button type="button" class="btn btn-ghost" id="resend-button" style="display:none;">Resend Verification</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script>
+    (async function () {
+      const params = new URLSearchParams(window.location.search);
+      const token = (params.get('token') || '').trim();
+      const statusEl = document.getElementById('verify-status');
+      const titleEl = document.getElementById('verify-title');
+      const messageEl = document.getElementById('verify-message');
+      const actionsEl = document.getElementById('verify-actions');
+      const resendBtn = document.getElementById('resend-button');
+
+      function showResult(status, title, message, showActions, canResend, email) {
+        statusEl.textContent = status;
+        titleEl.textContent = title;
+        messageEl.textContent = message;
+        actionsEl.style.display = showActions ? 'flex' : 'none';
+        resendBtn.style.display = canResend ? 'inline-flex' : 'none';
+        if (email) resendBtn.dataset.email = email;
+      }
+
+      if (!token) {
+        showResult('Invalid Link', 'Verification link missing', 'Open the full verification link from your email and try again.', true, false);
+        return;
+      }
+
+      const result = await verifyEmailToken(token);
+      if (result && result.success) {
+        showResult('Verified', 'Email verified', result.message || 'Your account is verified. You can now log in.', true, false);
+        return;
+      }
+
+      showResult(
+        result && result.expired ? 'Link Expired' : 'Verification Failed',
+        result && result.expired ? 'Verification link expired' : 'Could not verify email',
+        (result && result.message) || 'Something went wrong while verifying your email.',
+        true,
+        !!(result && result.expired && result.email),
+        result && result.email
+      );
+
+      resendBtn.addEventListener('click', async () => {
+        const resendEmail = resendBtn.dataset.email || '';
+        if (!resendEmail) return;
+        resendBtn.disabled = true;
+        resendBtn.textContent = 'Sending...';
+        const resendResult = await resendVerificationEmail(resendEmail);
+        resendBtn.disabled = false;
+        resendBtn.textContent = 'Resend Verification';
+        if (resendResult && resendResult.success) {
+          showResult('Email Sent', 'New verification email sent', resendResult.message || 'Check your inbox for a new verification link.', true, false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

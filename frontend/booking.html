@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Pitch — Dants Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="booking.css"/>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">⚽</div>
+      <div>
+        <div class="logo-text">DANTS<span>.</span></div>
+        <div class="logo-sub">Arena · Abeokuta</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="booking.html" class="nav-active">Book a Pitch</a></li>
+      <li><a href="membership.html">Memberships</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" onclick="openModal('login')">Log In</button>
+      <button class="btn btn-green" onclick="openModal('signup')">Join Now</button>
+    </div>
+  </nav>
+
+  
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="hero-label">Dants Arena · Abeokuta</div>
+      <h1>BOOK A<br/><span class="green-text">PITCH</span></h1>
+      <p>Reserve your 5-a-side slot in under 2 minutes. Instant confirmation guaranteed.</p>
+    </div>
+  </div>
+
+  
+  <div class="booking-wrapper">
+
+    
+    <div class="progress-bar">
+      <div class="progress-step active" id="prog-1">
+        <div class="prog-num">1</div>
+        <div class="prog-label">Facility</div>
+      </div>
+      <div class="progress-line" id="line-1"></div>
+      <div class="progress-step" id="prog-2">
+        <div class="prog-num">2</div>
+        <div class="prog-label">Date & Time</div>
+      </div>
+      <div class="progress-line" id="line-2"></div>
+      <div class="progress-step" id="prog-3">
+        <div class="prog-num">3</div>
+        <div class="prog-label">Your Details</div>
+      </div>
+      <div class="progress-line" id="line-3"></div>
+      <div class="progress-step" id="prog-4">
+        <div class="prog-num">4</div>
+        <div class="prog-label">Confirm & Pay</div>
+      </div>
+    </div>
+
+    
+    <div class="booking-step-panel active" id="step-1">
+      <div class="step-header">
+        <div class="step-tag">Step 1 of 4</div>
+        <h2>Select <span class="green-text">Facility</span></h2>
+        <p>Choose what you want to book today.</p>
+      </div>
+      <div class="facility-options">
+        <div class="facility-option selected" onclick="selectFacility(this, 'Football Pitch (5-A-Side)', '₦10,000')">
+          <div class="fac-icon">⚽</div>
+          <div class="fac-info">
+            <h3>Football Pitch (5-A-Side)</h3>
+            <p>Premium astroturf · LED floodlights · Professional goals</p>
+          </div>
+          <div class="fac-price">₦15,000<span>/hr</span></div>
+          <div class="fac-check">✓</div>
+        </div>
+        <div class="facility-option disabled">
+          <div class="fac-icon">💪</div>
+          <div class="fac-info">
+            <h3>Gym</h3>
+            <p>State-of-the-art equipment · Personal training</p>
+          </div>
+          <div class="fac-price coming">Coming Soon</div>
+        </div>
+        <div class="facility-option disabled">
+          <div class="fac-icon">🛋️</div>
+          <div class="fac-info">
+            <h3>Members Lounge</h3>
+            <p>Premium relaxation · Meeting space · Refreshments</p>
+          </div>
+          <div class="fac-price coming">Coming Soon</div>
+          <div class="facility-option disabled">
+          <div class="fac-icon">📺</div>
+          <div class="fac-info">
+            <h3>Viewing Center</h3>
+            <p>Big screen live match viewing · Premium seating</p>
+          </div>
+          <div class="fac-price coming">Coming Soon</div>
+        </div>
+
+        <div class="facility-option disabled">
+          <div class="fac-icon">🍻</div>
+          <div class="fac-info">
+            <h3>Bar &amp; Refreshments</h3>
+            <p>Cold drinks · Snacks · Post-match hangout spot</p>
+          </div>
+          <div class="fac-price coming">Coming Soon</div>
+        </div>
+        </div>
+      </div>
+      <div class="step-actions">
+        <button class="btn btn-green btn-lg" onclick="goToStep(2)">Continue →</button>
+      </div>
+    </div>
+
+
+    <div class="booking-step-panel" id="step-2">
+      <div class="step-header">
+        <div class="step-tag">Step 2 of 4</div>
+        <h2>Pick <span class="green-text">Date & Time</span></h2>
+        <p>Select your preferred date, duration, and available time slot.</p>
+      </div>
+
+      <div class="datetime-grid">
+        <div class="dt-box">
+          <label>Date</label>
+          <input type="date" id="booking-date" oninput="updateSummary()"/>
+        </div>
+        <div class="dt-box">
+          <label>Duration</label>
+          <select id="booking-duration" onchange="updateSummary()">
+            <option value="1">1 Hour</option>
+            <option value="2">2 Hours</option>
+            <option value="3">3 Hours</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="slots-section">
+        <label>Available Time Slots</label>
+        <p class="slots-note">Greyed out slots are already booked or have already passed.</p>
+        <div class="slots-grid">
+          <div class="slot" onclick="selectSlot(this, '6:00 AM')">6:00 AM</div>
+          <div class="slot" onclick="selectSlot(this, '7:00 AM')">7:00 AM</div>
+          <div class="slot booked">8:00 AM</div>
+          <div class="slot" onclick="selectSlot(this, '9:00 AM')">9:00 AM</div>
+          <div class="slot booked">10:00 AM</div>
+          <div class="slot" onclick="selectSlot(this, '11:00 AM')">11:00 AM</div>
+          <div class="slot selected" onclick="selectSlot(this, '12:00 PM')">12:00 PM</div>
+          <div class="slot" onclick="selectSlot(this, '1:00 PM')">1:00 PM</div>
+          <div class="slot" onclick="selectSlot(this, '2:00 PM')">2:00 PM</div>
+          <div class="slot booked">3:00 PM</div>
+          <div class="slot" onclick="selectSlot(this, '4:00 PM')">4:00 PM</div>
+          <div class="slot" onclick="selectSlot(this, '5:00 PM')">5:00 PM</div>
+          <div class="slot" onclick="selectSlot(this, '6:00 PM')">6:00 PM</div>
+          <div class="slot booked">7:00 PM</div>
+          <div class="slot" onclick="selectSlot(this, '8:00 PM')">8:00 PM</div>
+          <div class="slot" onclick="selectSlot(this, '9:00 PM')">9:00 PM</div>
+        </div>
+      </div>
+
+      <div class="step-actions">
+        <button class="btn btn-ghost btn-lg" onclick="goToStep(1)">← Back</button>
+        <button class="btn btn-green btn-lg" onclick="goToStep(3)">Continue →</button>
+      </div>
+    </div>
+
+        <div class="booking-step-panel" id="step-3">
+      <div class="step-header">
+        <div class="step-tag">Step 3 of 4</div>
+        <h2>Your <span class="green-text">Details</span></h2>
+        <p>Tell us who's booking. We'll send your confirmation here.</p>
+      </div>
+
+      <div class="details-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="fname" placeholder="Tunde"/>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="lname" placeholder="Adeyemi"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="you@email.com"/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="+234 800 000 0000"/>
+        </div>
+        <div class="form-group">
+  <label>Team / Group Name (Optional)</label>
+  <input type="text" id="team-name" placeholder="e.g. Abeokuta Warriors FC"/>
+</div>
+<div class="form-group">
+  <label>Special Requests (Optional)</label>
+  <textarea id="special-requests" placeholder="e.g. Need bibs, need a referee..."></textarea>
+</div>
+
+      <div class="step-actions">
+        <button class="btn btn-ghost btn-lg" onclick="goToStep(2)">← Back</button>
+        <button class="btn btn-green btn-lg" onclick="goToStep(4)">Continue →</button>
+      </div>
+    </div>
+    </div>
+
+    <div class="booking-step-panel" id="step-4">
+      <div class="step-header">
+        <div class="step-tag">Step 4 of 4</div>
+        <h2>Confirm <span class="green-text">&amp; Pay</span></h2>
+        <p>Review your booking and complete payment.</p>
+      </div>
+
+      <div class="confirm-grid">
+        <div class="summary-box">
+          <div class="summary-title">Booking Summary</div>
+          <div class="summary-row"><span>Facility</span><span id="sum-facility">Football Pitch (5-A-Side)</span></div>
+          <div class="summary-row"><span>Date</span><span id="sum-date">—</span></div>
+          <div class="summary-row"><span>Time</span><span id="sum-time">12:00 PM</span></div>
+          <div class="summary-row"><span>Duration</span><span id="sum-duration">1 Hour</span></div>
+          <div class="summary-row"><span>Location</span><span>Abeokuta, Ogun State</span></div>
+          <div class="summary-divider"></div>
+          <div class="summary-row total"><span>Total</span><span id="sum-total">₦10,000</span></div>
+        </div>
+
+        <div class="payment-box">
+          <div class="summary-title">Payment Method</div>
+          <div class="payment-options">
+            <div class="payment-opt selected" onclick="selectPayment(this)">
+              <span>💳</span> Pay Online with Paystack
+            </div>
+            <div class="payment-opt" onclick="selectPayment(this)">
+              <span>📱</span> Pay on Arrival
+            </div>
+          </div>
+          <div class="card-fields" id="card-fields">
+            <div class="form-group">
+              <label>Secure Checkout</label>
+              <div class="payment-redirect-note">
+                You’ll be redirected to Paystack to complete your payment securely. We do not collect card details directly on this page.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-actions">
+        <button class="btn btn-ghost btn-lg" onclick="goToStep(3)">← Back</button>
+     <button class="btn btn-green btn-lg" onclick="confirmBooking()">✅ Confirm Booking</button>
+      </div>
+    </div>
+
+    <div class="booking-step-panel" id="step-success">
+      <div class="success-screen">
+        <div class="success-icon">🎉</div>
+        <h2>Booking <span class="green-text">Confirmed!</span></h2>
+        <p>Your pitch is reserved. A confirmation has been sent to your email.</p>
+        <div class="success-details">
+          <div class="summary-row"><span>Booking ID</span><span class="green-text" id="success-booking-id">--</span></div>
+          <div class="summary-row"><span>Facility</span><span id="success-facility">Football Pitch (5-A-Side)</span></div>
+          <div class="summary-row"><span>Date</span><span id="success-date">—</span></div>
+          <div class="summary-row"><span>Time</span><span id="success-time">--</span></div>
+          <div class="summary-row"><span>Amount Paid</span><span id="success-total">--</span></div>
+        </div>
+        <p class="qr-hint">Your QR code will be available in your account dashboard.</p>
+        <div class="success-actions">
+          <a href="index.html" class="btn btn-ghost btn-lg">← Back to Home</a>
+          <a href="dashboard.html" class="btn btn-green btn-lg">View Dashboard</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+ 
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <form id="login-form" style="display:flex; flex-direction:column; gap:14px;">
+        <h3>Welcome<br/><span>Back.</span></h3>
+        <p class="modal-sub">Log in to your Dants Arena account.</p>
+        <div class="form-group">
+          <label>Username or Email</label>
+          <input id="login-email" type="text" placeholder="yourname or you@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="login-password" type="password" placeholder="••••••••" required/>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:14px;">Log In →</button>
+        <p class="modal-footer-text">New here? <a onclick="showForm('signup')" style="cursor:pointer;">Create an account</a></p>
+      </form>
+
+      <form id="signup-form" style="display:none; flex-direction:column; gap:14px;">
+        <h3>Join<br/><span>Dants.</span></h3>
+        <p class="modal-sub">Create your free account and start booking.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input id="signup-firstname" type="text" placeholder="Tunde" required/>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input id="signup-lastname" type="text" placeholder="Adeyemi" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input id="signup-username" type="text" placeholder="tunde.ade" required/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input id="signup-email" type="email" placeholder="you@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input id="signup-phone" type="tel" placeholder="+234 800 000 0000"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="signup-password" type="password" placeholder="At least 6 characters" required/>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input id="signup-confirm" type="password" placeholder="Repeat your password" required/>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:14px;">Create Account →</button>
+        <p class="modal-footer-text">Already a member? <a onclick="showForm('login')" style="cursor:pointer;">Log in</a></p>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="api.js"></script>
+<script src="script.js"></script>
+  <script src="booking.js"></script>
+</body>
+</html>

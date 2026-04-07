@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Dashboard — Dants Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="dashboard.css"/>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">⚽</div>
+      <div>
+        <div class="logo-text">DANTS<span>.</span></div>
+        <div class="logo-sub">Arena · Abeokuta</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="booking.html">Book a Pitch</a></li>
+      <li><a href="membership.html">Memberships</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="dashboard.html" class="nav-active">Dashboard</a></li>
+    </ul>
+    <div class="nav-actions"></div>
+  </nav>
+
+
+  <div class="dashboard-layout">
+
+
+    <aside class="sidebar">
+      <div class="sidebar-profile">
+        <div class="avatar">TA</div>
+        <div class="profile-info">
+          <div class="profile-name">Loading...</div>
+          <div class="profile-email">Loading...</div>
+          <div class="profile-badge">Loading membership...</div>
+          <div class="role-badge" id="role-badge" hidden>Admin</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="sidebar-link active" onclick="switchTab('overview')">
+          <span>🏠</span> Overview
+        </a>
+        <a class="sidebar-link" onclick="switchTab('bookings')">
+          <span>📅</span> My Bookings
+        </a>
+        <a class="sidebar-link" onclick="switchTab('qr')">
+          <span>📲</span> My QR Code
+        </a>
+        <a class="sidebar-link" onclick="switchTab('membership')">
+          <span>🥈</span> Membership
+        </a>
+        <a class="sidebar-link" onclick="switchTab('profile')">
+          <span>⚙️</span> Profile Settings
+        </a>
+        <a class="sidebar-link" id="admin-sidebar-link" onclick="switchTab('admin')" hidden>
+          <span>🛠️</span> Admin Tools
+        </a>
+      </nav>
+
+      <div class="sidebar-book-cta">
+        <p>Ready to play?</p>
+        <a href="booking.html" class="btn btn-green" style="width:100%;text-align:center;display:block;padding:12px;">Book a Pitch →</a>
+      </div>
+    </aside>
+
+   
+    <main class="dashboard-main">
+
+      <div class="tab-panel active" id="tab-overview">
+        <div class="tab-header">
+          <div class="tab-greeting" id="greeting">Welcome back</div>
+          <div class="tab-date" id="today-date"></div>
+        </div>
+
+        <div class="quick-stats">
+          <div class="qstat-card">
+            <div class="qstat-icon">📅</div>
+            <div class="qstat-info">
+              <div class="qstat-num" id="stat-bookings-left">—</div>
+              <div class="qstat-label">Bookings Left</div>
+            </div>
+          </div>
+          <div class="qstat-card">
+            <div class="qstat-icon">⚽</div>
+            <div class="qstat-info">
+              <div class="qstat-num" id="stat-total-sessions">—</div>
+              <div class="qstat-label">Total Sessions</div>
+            </div>
+          </div>
+          <div class="qstat-card">
+            <div class="qstat-icon">🏆</div>
+            <div class="qstat-info">
+              <div class="qstat-num">—</div>
+              <div class="qstat-label">Events Attended</div>
+            </div>
+          </div>
+          <div class="qstat-card">
+            <div class="qstat-icon">📆</div>
+            <div class="qstat-info">
+              <div class="qstat-num" id="stat-days-renewal">—</div>
+              <div class="qstat-label">Days to Renewal</div>
+            </div>
+          </div>
+        </div>
+
+      
+        <div class="section-block">
+          <div class="block-header">
+            <div class="block-title">Next Booking</div>
+            <a href="booking.html" class="block-link">+ New Booking</a>
+          </div>
+          <div id="next-booking-container">
+            <p style="color:var(--muted);font-size:0.85rem;">Loading...</p>
+          </div>
+        </div>
+
+        <div class="section-block">
+          <div class="block-header">
+            <div class="block-title">Recent Activity</div>
+            <a onclick="switchTab('bookings')" class="block-link" style="cursor:pointer;">View All</a>
+          </div>
+          <div class="activity-list" id="recent-activity">
+            <p style="color:var(--muted);font-size:0.85rem;">Loading...</p>
+          </div>
+        </div>
+
+        
+        <div class="section-block">
+          <div class="block-header">
+            <div class="block-title">Upcoming Events</div>
+            <a href="events.html" class="block-link">See All Events</a>
+          </div>
+          <div class="mini-events" id="overview-events-list">
+            <p style="color:var(--muted);font-size:0.85rem;">Loading upcoming events...</p>
+          </div>
+        </div>
+      </div>
+
+    
+      <div class="tab-panel" id="tab-bookings">
+        <div class="tab-header">
+          <div class="tab-title">My Bookings</div>
+          <a href="booking.html" class="btn btn-green">+ New Booking</a>
+        </div>
+
+        
+        <div class="subtabs">
+          <div class="subtab active" onclick="switchSubtab(this, 'upcoming-bookings')">Upcoming</div>
+          <div class="subtab" onclick="switchSubtab(this, 'past-bookings')">Past</div>
+        </div>
+
+        <div id="upcoming-bookings">
+          <p style="color:var(--muted);font-size:0.85rem;">Loading upcoming bookings...</p>
+        </div>
+
+        <div id="past-bookings" style="display:none;">
+          <p style="color:var(--muted);font-size:0.85rem;">Loading booking history...</p>
+        </div>
+      </div>
+
+   
+      <div class="tab-panel" id="tab-qr">
+        <div class="tab-header">
+          <div class="tab-title">My QR Code</div>
+        </div>
+
+        <div class="qr-layout">
+          <div class="qr-card">
+            <div class="qr-card-header">
+              <div class="qr-logo">⚽ DANTS ARENA</div>
+              <div class="qr-member-badge" id="qr-member-badge">Membership loading</div>
+            </div>
+            <div class="qr-code-box">
+              <div class="qr-render" id="qr-render" aria-label="Member QR code"></div>
+              <div class="qr-fallback" id="qr-fallback" hidden>Generating secure QR code...</div>
+              <div class="qr-scan-label" id="qr-scan-label">Scan to verify entry</div>
+            </div>
+            <div class="qr-member-details">
+              <div class="qr-detail-row"><span>Name</span><span id="qr-detail-name">Loading...</span></div>
+              <div class="qr-detail-row"><span>Member ID</span><span class="green-text" id="qr-detail-id">--</span></div>
+              <div class="qr-detail-row"><span>Plan</span><span id="qr-detail-plan">No plan</span></div>
+              <div class="qr-detail-row"><span>Valid Until</span><span id="qr-detail-valid">--</span></div>
+              <div class="qr-detail-row"><span>Status</span><span class="status-active" id="qr-detail-status">Pending</span></div>
+            </div>
+            <div class="qr-actions">
+              <button class="btn btn-ghost" id="save-qr-btn">⬇ Save</button>
+              <button class="btn btn-ghost" id="share-qr-btn">↗ Share</button>
+              <button class="btn btn-green" id="print-qr-btn">🖨 Print</button>
+            </div>
+          </div>
+
+          <div class="qr-info-panel">
+            <div class="qr-info-block">
+              <div class="qi-icon">📲</div>
+              <h4>How to use your QR Code</h4>
+              <p>Show this QR code at the Dants Arena reception when you arrive. Our staff will scan it to verify your booking and membership instantly.</p>
+            </div>
+            <div class="qr-info-block">
+              <div class="qi-icon">🔄</div>
+              <h4>Auto-refreshes monthly</h4>
+              <p>Your QR code updates automatically when your membership renews. Always use the latest version for entry.</p>
+            </div>
+            <div class="qr-info-block">
+              <div class="qi-icon">🔒</div>
+              <h4>Keep it private</h4>
+              <p>Do not share your QR code publicly. It is linked to your personal membership and bookings.</p>
+            </div>
+            <div class="current-booking-qr" id="current-booking-qr">
+              <div class="cbq-label">Current Active Booking</div>
+              <div class="cbq-info">
+                <div class="cbq-icon">⚽</div>
+                <div>
+                  <div class="cbq-title" id="current-booking-title">No active booking</div>
+                  <div class="cbq-meta" id="current-booking-meta">Your next confirmed booking will show here.</div>
+                </div>
+                <div class="status-badge confirmed" id="current-booking-status">--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     
+      <div class="tab-panel" id="tab-membership">
+        <div class="tab-header">
+          <div class="tab-title">My Membership</div>
+        </div>
+
+        <div class="membership-overview">
+          <div class="mem-current-card">
+            <div class="mem-card-glow"></div>
+            <div class="mem-card-top">
+              <div>
+                <div class="mem-plan-label">Current Plan</div>
+                <div class="mem-plan-name">No Plan</div>
+              </div>
+              <div class="mem-price-display">
+                <span class="mem-price">—</span>
+                <span class="mem-period">/ month</span>
+              </div>
+            </div>
+            <div class="mem-card-stats">
+              <div class="mem-stat">
+                <div class="mem-stat-num">0</div>
+                <div class="mem-stat-label">Bookings Left</div>
+              </div>
+              <div class="mem-stat">
+                <div class="mem-stat-num">0</div>
+                <div class="mem-stat-label">Total / Month</div>
+              </div>
+              <div class="mem-stat">
+                <div class="mem-stat-num">0</div>
+                <div class="mem-stat-label">Days Left</div>
+              </div>
+            </div>
+            <div class="mem-card-footer">
+              <div class="mem-renewal">No active membership yet</div>
+              <div class="status-badge completed" id="membership-status-badge">Inactive</div>
+            </div>
+          </div>
+
+          <div class="mem-actions-panel">
+            <div class="mem-action-block">
+              <h4>Upgrade Your Plan</h4>
+              <p>Get unlimited bookings, gym access, and lounge access when they open.</p>
+              <a href="membership.html" class="btn btn-green" style="display:inline-block;margin-top:12px;">Upgrade to Gold →</a>
+            </div>
+            <div class="mem-action-block">
+              <h4>Billing History</h4>
+              <div class="billing-list">
+                <div class="billing-row">
+                  <span>Membership billing</span>
+                  <span id="billing-history-summary">Payments will appear here once billing is live.</span>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-ghost" id="cancel-membership-btn" style="width:100%;margin-top:8px;color:var(--muted);" onclick="handleCancelMembership()">Cancel Membership</button>
+          </div>
+        </div>
+      </div>
+
+     
+      <div class="tab-panel" id="tab-profile">
+        <div class="tab-header">
+          <div class="tab-title">Profile Settings</div>
+        </div>
+
+        <div class="profile-layout">
+          <div class="profile-avatar-section">
+            <div class="avatar large">TA</div>
+            <div class="profile-member-since">Member since Jan 2025</div>
+          </div>
+
+          <div class="profile-form">
+            <div class="form-section-title">Personal Information</div>
+            <div class="profile-form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="profile-firstname" value=""/>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="profile-lastname" value=""/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="profile-email-input" value="" readonly/>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="profile-phone" value=""/>
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" id="profile-city" value=""/>
+            </div>
+            <div class="form-group" id="profile-role-group" hidden>
+              <label>Account Role</label>
+              <input type="text" id="profile-role" value="" readonly/>
+            </div>
+            <div class="form-group">
+              <label>Favourite Position</label>
+              <select id="profile-position">
+                <option>Striker</option>
+                <option>Midfielder</option>
+                <option>Defender</option>
+                <option>Goalkeeper</option>
+              </select>
+            </div>
+
+            <div class="form-section-title" style="margin-top:32px;">Change Password</div>
+            <div class="form-group">
+              <label>Current Password</label>
+              <input type="password" id="profile-current-password" placeholder="••••••••"/>
+            </div>
+            <div class="profile-form-row">
+              <div class="form-group">
+                <label>New Password</label>
+                <input type="password" id="profile-new-password" placeholder="••••••••"/>
+              </div>
+              <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="profile-confirm-password" placeholder="••••••••"/>
+              </div>
+            </div>
+
+            <div class="form-section-title" style="margin-top:32px;">Notifications</div>
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-row-title">Email Booking Confirmations</div>
+                <div class="toggle-row-desc">Receive confirmation emails for every booking</div>
+              </div>
+              <button type="button" class="mini-toggle on" id="pref-booking-confirmations" aria-label="Toggle booking confirmations"></button>
+            </div>
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-row-title">Event Reminders</div>
+                <div class="toggle-row-desc">Get reminded about upcoming events you registered for</div>
+              </div>
+              <button type="button" class="mini-toggle on" id="pref-event-reminders" aria-label="Toggle event reminders"></button>
+            </div>
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-row-title">Membership Renewal Alerts</div>
+                <div class="toggle-row-desc">Be notified 7 days before your membership expires</div>
+              </div>
+              <button type="button" class="mini-toggle on" id="pref-membership-renewal" aria-label="Toggle membership renewal alerts"></button>
+            </div>
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-row-title">Promotional Messages</div>
+                <div class="toggle-row-desc">News, offers, and updates from Dants Arena</div>
+              </div>
+              <button type="button" class="mini-toggle" id="pref-promotional-messages" aria-label="Toggle promotional messages"></button>
+            </div>
+
+            <button class="btn btn-green" style="margin-top:32px;padding:14px 36px;" onclick="saveProfile()">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-admin" hidden>
+        <div class="tab-header">
+          <div class="tab-title">Admin Tools</div>
+        </div>
+
+        <div class="admin-grid">
+          <div class="section-block admin-section">
+            <div class="block-header">
+              <div class="block-title">Verify Member QR</div>
+              <div class="block-link">Reception</div>
+            </div>
+            <p class="admin-panel-copy">Scan with camera when available, or paste the token manually to validate a member and their current booking.</p>
+            <div class="admin-scan-actions">
+              <button class="btn btn-ghost" id="start-scan-btn">Start Camera Scan</button>
+              <button class="btn btn-ghost" id="stop-scan-btn" hidden>Stop Scan</button>
+            </div>
+            <div class="admin-scanner" id="admin-scanner" hidden>
+              <video id="admin-scan-video" autoplay muted playsinline></video>
+              <div class="admin-scanner-note" id="admin-scanner-note">Point the camera at a Dants Arena QR code.</div>
+            </div>
+            <div class="admin-verify-grid">
+              <div class="form-group">
+                <label>QR Token</label>
+                <textarea id="admin-qr-input-main" class="admin-qr-input" placeholder="Paste scanned QR token here"></textarea>
+              </div>
+              <button class="btn btn-green" id="verify-qr-btn-main" style="align-self:end;">Verify QR Code</button>
+            </div>
+            <div class="admin-verify-result" id="admin-verify-result-main">Awaiting scan...</div>
+          </div>
+
+          <div class="section-block admin-section">
+            <div class="block-header">
+              <div class="block-title">Manage Events</div>
+              <div class="block-link">Create, edit, cancel</div>
+            </div>
+            <form id="admin-event-form" class="admin-event-form">
+              <input type="hidden" id="admin-event-id" />
+              <div class="profile-form-row">
+                <div class="form-group">
+                  <label>Title</label>
+                  <input type="text" id="admin-event-title" required />
+                </div>
+                <div class="form-group">
+                  <label>Type</label>
+                  <select id="admin-event-type">
+                    <option value="tournament">Tournament</option>
+                    <option value="league">League</option>
+                    <option value="viewing">Watch Party</option>
+                    <option value="training">Training</option>
+                    <option value="social">Social</option>
+                  </select>
+                </div>
+              </div>
+              <div class="profile-form-row">
+                <div class="form-group">
+                  <label>Date</label>
+                  <input type="date" id="admin-event-date" required />
+                </div>
+                <div class="form-group">
+                  <label>Time</label>
+                  <input type="text" id="admin-event-time" placeholder="9:00 AM - 2:00 PM" required />
+                </div>
+              </div>
+              <div class="profile-form-row">
+                <div class="form-group">
+                  <label>Price</label>
+                  <input type="text" id="admin-event-price" placeholder="₦3,000/team or FREE" />
+                </div>
+                <div class="form-group">
+                  <label>Total Spots</label>
+                  <input type="number" id="admin-event-spots" min="1" value="16" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Prize</label>
+                <input type="text" id="admin-event-prize" placeholder="₦50,000" />
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea id="admin-event-description" class="admin-qr-input" placeholder="Event details"></textarea>
+              </div>
+              <div class="admin-form-actions">
+                <button type="submit" class="btn btn-green" id="admin-event-submit">Create Event</button>
+                <button type="button" class="btn btn-ghost" id="admin-event-reset">Clear</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="section-block admin-section">
+          <div class="block-header">
+            <div class="block-title">Current Events</div>
+            <div class="block-link" id="admin-events-count">Loading...</div>
+          </div>
+          <div class="admin-events-list" id="admin-events-list">
+            <p style="color:var(--muted);font-size:0.85rem;">Loading events...</p>
+          </div>
+        </div>
+
+        <div class="section-block admin-section">
+          <div class="block-header">
+            <div class="block-title">Manage Bookings</div>
+            <div class="block-link" id="admin-bookings-count">Loading...</div>
+          </div>
+          <div class="admin-booking-filters">
+            <div class="form-group">
+              <label>Status</label>
+              <select id="admin-booking-status-filter">
+                <option value="">All statuses</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="pending">Pending</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" id="admin-booking-date-filter" />
+            </div>
+            <div class="form-group">
+              <label>Search</label>
+              <input type="text" id="admin-booking-search" placeholder="Name, email, booking ID" />
+            </div>
+            <button class="btn btn-ghost" id="admin-booking-apply" style="align-self:end;">Apply Filters</button>
+          </div>
+          <div class="admin-bookings-list" id="admin-bookings-list">
+            <p style="color:var(--muted);font-size:0.85rem;">Loading bookings...</p>
+          </div>
+        </div>
+
+        <div class="admin-grid">
+          <div class="section-block admin-section">
+            <div class="block-header">
+              <div class="block-title">Manage Users</div>
+              <div class="block-link" id="admin-users-count">Loading...</div>
+            </div>
+            <div class="admin-booking-filters">
+              <div class="form-group" style="grid-column: span 3;">
+                <label>Search Users</label>
+                <input type="text" id="admin-users-search" placeholder="Name, email, username, phone" />
+              </div>
+              <button class="btn btn-ghost" id="admin-users-apply" style="align-self:end;">Search</button>
+            </div>
+            <div class="admin-users-list" id="admin-users-list">
+              <p style="color:var(--muted);font-size:0.85rem;">Loading users...</p>
+            </div>
+          </div>
+
+          <div class="section-block admin-section">
+            <div class="block-header">
+              <div class="block-title">Event Attendees</div>
+              <div class="block-link" id="admin-attendees-count">Choose event</div>
+            </div>
+            <div class="admin-booking-filters">
+              <div class="form-group" style="grid-column: span 3;">
+                <label>Event</label>
+                <select id="admin-attendees-event-select">
+                  <option value="">Select an event</option>
+                </select>
+              </div>
+              <button class="btn btn-ghost" id="admin-attendees-load" style="align-self:end;">Load Attendees</button>
+            </div>
+            <div class="admin-attendees-list" id="admin-attendees-list">
+              <p style="color:var(--muted);font-size:0.85rem;">Select an event to view attendees.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-block admin-section">
+          <div class="block-header">
+            <div class="block-title">QR Check-in Log</div>
+            <div class="block-link" id="admin-checkins-count">Loading...</div>
+          </div>
+          <div class="admin-checkins-list" id="admin-checkins-list">
+            <p style="color:var(--muted);font-size:0.85rem;">Loading check-ins...</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="reschedule-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeRescheduleModal()">×</button>
+      <h3>Reschedule<br/><span>Booking.</span></h3>
+      <p class="modal-sub">Pick a new date and time for your booking.</p>
+      <input type="hidden" id="reschedule-booking-id" />
+      <div class="form-group">
+        <label>New Date</label>
+        <input type="date" id="reschedule-date" />
+      </div>
+      <div class="form-group">
+        <label>Available Time Slots</label>
+        <div class="slots-grid" id="reschedule-slots"></div>
+      </div>
+      <div class="form-group">
+        <label>Duration</label>
+        <select id="reschedule-duration">
+          <option value="60">1 Hour</option>
+          <option value="90">1.5 Hours</option>
+          <option value="120">2 Hours</option>
+          <option value="180">3 Hours</option>
+        </select>
+      </div>
+      <button class="btn btn-green" style="width:100%;padding:14px;" id="confirm-reschedule-btn">Confirm Reschedule</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  
+  <script src="api.js"></script>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="dashboard.js"></script>
+
+</body>
+</html>

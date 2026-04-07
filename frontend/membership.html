@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Memberships — Dants Arena</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="membership.css"/>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  
+  <nav>
+    <a href="index.html" class="logo">
+      <div class="logo-icon">⚽</div>
+      <div>
+        <div class="logo-text">DANTS<span>.</span></div>
+        <div class="logo-sub">Arena · Abeokuta</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="booking.html">Book a Pitch</a></li>
+      <li><a href="membership.html" class="nav-active">Memberships</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" onclick="openModal('login')">Log In</button>
+      <button class="btn btn-green" onclick="openModal('signup')">Join Now</button>
+    </div>
+  </nav>
+
+ 
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="hero-label">Choose Your Plan</div>
+      <h1>MEMBER<br/><span class="green-text">SHIPS</span></h1>
+      <p>Join Dants Arena and get more for less. Cancel anytime, no hidden fees.</p>
+    </div>
+  </div>
+
+  
+  <div class="billing-toggle-wrap">
+    <span id="toggle-monthly" class="toggle-label active">Monthly</span>
+    <div class="toggle-switch" onclick="toggleBilling()">
+      <div class="toggle-knob" id="toggle-knob"></div>
+    </div>
+    <span id="toggle-annual" class="toggle-label">Annual <span class="save-badge">Save 20%</span></span>
+  </div>
+
+  
+  <div class="membership-wrapper">
+    <div class="plans-grid">
+
+    
+      <div class="plan-card reveal">
+        <div class="plan-icon">🥉</div>
+        <div class="plan-name">Bronze</div>
+        <div class="plan-tagline">Perfect for casual players</div>
+        <div class="plan-price">
+          <span class="price-currency">₦</span>
+          <span class="price-amount" data-monthly="5,000" data-annual="48,000">5,000</span>
+          <span class="price-period">/ month</span>
+        </div>
+        <ul class="plan-features">
+          <li class="has">2 pitch bookings per month</li>
+          <li class="has">Events calendar access</li>
+          <li class="has">QR code membership card</li>
+          <li class="has">Free parking</li>
+          <li class="has">Access to changing rooms</li>
+          <li class="no">Gym access</li>
+          <li class="no">Lounge access</li>
+          <li class="no">Viewing center access</li>
+          <li class="no">Bar discount</li>
+          <li class="no">Priority booking</li>
+          <li class="no">Guest passes</li>
+        </ul>
+        <button class="btn btn-ghost plan-btn" onclick="selectPlan('Bronze', '₦5,000')">Get Bronze</button>
+      </div>
+
+    
+      <div class="plan-card popular reveal">
+        <div class="popular-tag">⭐ Most Popular</div>
+        <div class="plan-icon">🥈</div>
+        <div class="plan-name">Silver</div>
+        <div class="plan-tagline">Best for regular players</div>
+        <div class="plan-price">
+          <span class="price-currency">₦</span>
+          <span class="price-amount" data-monthly="12,000" data-annual="115,200">12,000</span>
+          <span class="price-period">/ month</span>
+        </div>
+        <ul class="plan-features">
+          <li class="has">6 pitch bookings per month</li>
+          <li class="has">Events calendar access</li>
+          <li class="has">QR code membership card</li>
+          <li class="has">Free parking</li>
+          <li class="has">Access to changing rooms</li>
+          <li class="has soon">Gym access <span class="coming-chip">Soon</span></li>
+          <li class="no">Lounge access</li>
+          <li class="no">Viewing center access</li>
+          <li class="no">Bar discount</li>
+          <li class="has">Priority booking (48hrs)</li>
+          <li class="no">Guest passes</li>
+        </ul>
+        <button class="btn btn-green plan-btn" onclick="selectPlan('Silver', '₦12,000')">Get Silver</button>
+      </div>
+
+      
+      <div class="plan-card reveal">
+        <div class="plan-icon">🥇</div>
+        <div class="plan-name">Gold</div>
+        <div class="plan-tagline">For the serious athlete</div>
+        <div class="plan-price">
+          <span class="price-currency">₦</span>
+          <span class="price-amount" data-monthly="25,000" data-annual="240,000">25,000</span>
+          <span class="price-period">/ month</span>
+        </div>
+        <ul class="plan-features">
+          <li class="has">Unlimited pitch bookings</li>
+          <li class="has">Events calendar access</li>
+          <li class="has">QR code membership card</li>
+          <li class="has">Free parking</li>
+          <li class="has">Access to changing rooms</li>
+          <li class="has soon">Gym access <span class="coming-chip">Soon</span></li>
+          <li class="has soon">Lounge access <span class="coming-chip">Soon</span></li>
+          <li class="no">Viewing center access</li>
+          <li class="no">Bar discount</li>
+          <li class="has">Priority booking (72hrs)</li>
+          <li class="has">2 guest passes/month</li>
+        </ul>
+        <button class="btn btn-green plan-btn gold-btn" onclick="selectPlan('Gold', '₦25,000')">Get Gold</button>
+      </div>
+
+    </div>
+
+   
+    <div class="compare-section reveal">
+      <div class="section-label">Full Comparison</div>
+      <h2 class="compare-title">Plan <span class="green-text">Features</span></h2>
+      <div class="compare-table">
+        <div class="compare-header">
+          <div class="compare-feature-col">Feature</div>
+          <div class="compare-plan-col">🥉 Bronze</div>
+          <div class="compare-plan-col popular-col">🥈 Silver</div>
+          <div class="compare-plan-col">🥇 Gold</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">Monthly pitch bookings</div>
+          <div class="compare-plan-col">2</div>
+          <div class="compare-plan-col popular-col">6</div>
+          <div class="compare-plan-col">Unlimited</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">QR Code Card</div>
+          <div class="compare-plan-col">✓</div>
+          <div class="compare-plan-col popular-col">✓</div>
+          <div class="compare-plan-col">✓</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">Events Access</div>
+          <div class="compare-plan-col">✓</div>
+          <div class="compare-plan-col popular-col">✓</div>
+          <div class="compare-plan-col">✓</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">Priority Booking</div>
+          <div class="compare-plan-col">✕</div>
+          <div class="compare-plan-col popular-col">48 hrs early</div>
+          <div class="compare-plan-col">72 hrs early</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">Gym Access</div>
+          <div class="compare-plan-col">✕</div>
+          <div class="compare-plan-col popular-col">Soon</div>
+          <div class="compare-plan-col">Soon</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">Lounge Access</div>
+          <div class="compare-plan-col">✕</div>
+          <div class="compare-plan-col popular-col">✕</div>
+          <div class="compare-plan-col">Soon</div>
+          <div class="compare-row">
+          <div class="compare-feature-col">Viewing Center</div>
+          <div class="compare-plan-col">✕</div>
+          <div class="compare-plan-col popular-col">Soon</div>
+          <div class="compare-plan-col">Soon</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">Bar Discount</div>
+          <div class="compare-plan-col">✕</div>
+          <div class="compare-plan-col popular-col">✕</div>
+          <div class="compare-plan-col">10% Soon</div>
+        </div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">Guest Passes</div>
+          <div class="compare-plan-col">✕</div>
+          <div class="compare-plan-col popular-col">✕</div>
+          <div class="compare-plan-col">2 / month</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-feature-col">Monthly Price</div>
+          <div class="compare-plan-col">₦5,000</div>
+          <div class="compare-plan-col popular-col green-text">₦12,000</div>
+          <div class="compare-plan-col">₦25,000</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="faq-section reveal">
+      <div class="section-label">Common Questions</div>
+      <h2 class="compare-title">FAQs</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I cancel my membership anytime?</span>
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-answer">Yes. You can cancel your membership at any time with no penalty. Your access continues until the end of your current billing period.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Can I upgrade or downgrade my plan?</span>
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-answer">Absolutely. You can upgrade or downgrade your plan from your account dashboard at any time. Changes take effect on your next billing date.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>When will the gym and lounge open?</span>
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-answer">The gym and lounge are currently under construction. Members who sign up now will get early access when they open. We'll notify you via email.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How does the QR code work?</span>
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-answer">Your QR code is your digital membership card. Show it at the reception desk when you arrive. It also verifies your booking for each session.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Do unused bookings roll over?</span>
+            <span class="faq-arrow">+</span>
+          </div>
+          <div class="faq-answer">No, unused bookings do not roll over to the next month. We recommend booking in advance to make the most of your plan.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+ 
+  <div class="modal-overlay" id="plan-modal-overlay">
+    <div class="modal">
+      <button class="modal-close" onclick="closePlanModal()">×</button>
+      <h3>Activate <span id="plan-modal-name">Silver</span></h3>
+      <p class="modal-sub">Continue to Paystack to complete your membership payment securely.</p>
+      <div class="selected-plan-display" id="selected-plan-display">
+        Silver Plan — ₦12,000/month
+      </div>
+      <div class="payment-redirect-note" style="margin-top:14px;">
+        You’ll be redirected to Paystack to pay for this plan. Your membership will activate automatically after successful payment verification.
+      </div>
+      <button class="btn btn-green" id="plan-modal-submit" style="width:100%;padding:14px;margin-top:12px;" onclick="startMembershipCheckout()">Continue to Paystack →</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <form id="login-form" style="display:flex; flex-direction:column; gap:14px;">
+        <h3>Welcome<br/><span>Back.</span></h3>
+        <p class="modal-sub">Log in to your Dants Arena account.</p>
+        <div class="form-group">
+          <label>Username or Email</label>
+          <input id="login-email" type="text" placeholder="yourname or you@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="login-password" type="password" placeholder="••••••••" required/>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:14px;">Log In →</button>
+        <p class="modal-footer-text">New here? <a onclick="showForm('signup')" style="cursor:pointer;">Create an account</a></p>
+      </form>
+
+      <form id="signup-form" style="display:none; flex-direction:column; gap:14px;">
+        <h3>Join<br/><span>Dants.</span></h3>
+        <p class="modal-sub">Create your free account and start booking.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input id="signup-firstname" type="text" placeholder="Tunde" required/>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input id="signup-lastname" type="text" placeholder="Adeyemi" required/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input id="signup-username" type="text" placeholder="tunde.ade" required/>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input id="signup-email" type="email" placeholder="you@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input id="signup-phone" type="tel" placeholder="+234 800 000 0000"/>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="signup-password" type="password" placeholder="At least 6 characters" required/>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input id="signup-confirm" type="password" placeholder="Repeat your password" required/>
+        </div>
+        <button type="submit" class="btn btn-green" style="width:100%;padding:14px;">Create Account →</button>
+        <p class="modal-footer-text">Already a member? <a onclick="showForm('login')" style="cursor:pointer;">Log in</a></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="api.js"></script>
+<script src="script.js"></script>
+  <script src="membership.js"></script>
+</body>
+</html>
