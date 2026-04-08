@@ -7,7 +7,7 @@ let currentStep      = 1;
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  // Handle Paystack callback after payment redirect
+
   const urlParams = new URLSearchParams(window.location.search);
   const payment   = urlParams.get('payment');
   const reference = urlParams.get('reference') || urlParams.get('trxref');
@@ -19,10 +19,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       showToast('🎉 Payment confirmed! Your booking is fully paid.');
       setTimeout(() => { window.location.href = 'dashboard.html'; }, 2000);
     }
-    return; // Stop normal booking form init
+    return; 
   }
 
-  // Pre-fill step-3 details from logged-in user
   const user = getUser();
   if (user) {
     const fnameEl = document.getElementById('fname');
@@ -263,7 +262,7 @@ async function confirmBooking() {
     const booking = result.booking;
 
     if (paymentMethod === 'online') {
-      // Initiate Paystack payment
+     
       if (confirmBtn) { confirmBtn.textContent = '💳 Redirecting to payment...'; confirmBtn.disabled = true; }
       const paymentResult = await initiateBookingPayment(booking.id);
       if (paymentResult && paymentResult.success) {
@@ -273,7 +272,7 @@ async function confirmBooking() {
         if (confirmBtn) { confirmBtn.textContent = '✅ Confirm Booking'; confirmBtn.disabled = false; }
       }
     } else {
-      // Pay on arrival — show success screen immediately
+      
       showSuccessScreen(booking);
     }
   }

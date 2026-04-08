@@ -33,12 +33,12 @@ const PLANS = {
   }
 };
 
-// GET /api/membership/plans
+
 router.get('/plans', (_req, res) => {
   return res.json({ success: true, plans: PLANS });
 });
 
-// GET /api/membership/status
+
 router.get('/status', requireAuth, async (req, res) => {
   try {
     const { data: user, error } = await supabase
