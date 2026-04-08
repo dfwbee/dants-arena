@@ -105,6 +105,18 @@ function initPasswordToggles() {
 
 initPasswordToggles();
 
+function injectForgotPasswordLinks() {
+  document.querySelectorAll('#login-form').forEach((form) => {
+    if (form.querySelector('[data-forgot-password-link]')) return;
+    const footer = document.createElement('p');
+    footer.className = 'modal-footer-text';
+    footer.innerHTML = '<a href="forgot-password.html" data-forgot-password-link>Forgot your password?</a>';
+    form.appendChild(footer);
+  });
+}
+
+injectForgotPasswordLinks();
+
 function setupLegacyAuthModal() {
   const legacyOverlay = document.getElementById('modal-overlay');
   const legacyLogin = document.getElementById('modal-login');
@@ -136,7 +148,6 @@ function setupLegacyAuthModal() {
       target: legacyLogin
     }));
   }
-
   const signupRows = legacySignup.querySelectorAll('.form-row');
   const signupInputs = legacySignup.querySelectorAll('input');
   const signupButton = legacySignup.querySelector('button.btn');

@@ -144,7 +144,6 @@
       letter-spacing: 1px;
       color: rgba(255, 255, 255, 0.2);
     }
-
     /* ── Responsive ── */
     @media (max-width: 800px) {
       .auth-page          { grid-template-columns: 1fr; height: auto; overflow: visible; }
@@ -227,6 +226,9 @@
           <button type="submit" class="btn btn-green" style="width:100%;padding:14px;margin-top:4px;">
             Log In →
           </button>
+          <p class="modal-footer-text">
+            <a href="forgot-password.html" data-forgot-password-link>Forgot your password?</a>
+          </p>
           <p class="modal-footer-text">
             New here? <a onclick="showForm('signup')" style="cursor:pointer;">Create an account</a>
           </p>
