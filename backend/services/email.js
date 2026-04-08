@@ -1,5 +1,3 @@
-const nodemailer = require('nodemailer');
-
 const DEFAULT_FRONTEND_URL = 'http://localhost:3001';
 
 function getFrontendUrl() {
@@ -10,34 +8,12 @@ function buildVerificationUrl(token) {
   return `${getFrontendUrl()}/verify.html?token=${encodeURIComponent(token)}`;
 }
 
-function createTransport() {
-  const user = process.env.GMAIL_USER;
-  const appPassword = process.env.GMAIL_APP_PASSWORD;
-
-  if (!user || !appPassword) {
-    throw new Error('Email verification is not configured. Add GMAIL_USER and GMAIL_APP_PASSWORD to backend/.env.');
-  }
-
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    family: 4,
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
-    auth: {
-      user,
-      pass: appPassword
-    }
-  });
-}
-
 async function sendVerificationEmail({ email, firstName, token }) {
-  const from = process.env.EMAIL_FROM || process.env.GMAIL_USER;
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.EMAIL_FROM;
 
-  if (!from) {
-    throw new Error('Email verification is not configured. Add EMAIL_FROM or GMAIL_USER to backend/.env.');
+  if (!apiKey || !from) {
+    throw new Error('Email verification is not configured. Add RESEND_API_KEY and EMAIL_FROM to backend/.env.');
   }
 
   const verifyUrl = buildVerificationUrl(token);
@@ -57,18 +33,37 @@ async function sendVerificationEmail({ email, firstName, token }) {
     </div>
   `;
 
-  const transport = createTransport();
-  const result = await transport.sendMail({
-      from,
-      to: email,
-      subject: 'Verify your Dants Arena account',
-      html
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
 
-  return result;
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        from,
+        to: [email],
+        subject: 'Verify your Dants Arena account',
+        html
+      }),
+      signal: controller.signal
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.message || data.error || 'Failed to send verification email.');
+    }
+
+    return data;
+  } finally {
+ clearTimeout(timeout);
+}
 }
 
 module.exports = {
-  buildVerificationUrl,
-  sendVerificationEmail
+buildVerificationUrl,
+sendVerificationEmail
 };
