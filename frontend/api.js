@@ -1,9 +1,8 @@
-const API_URL = 'https://dants-arena.up.railway.app/api';
-const LOGIN_PAGE = 'login.html';
-const PUBLIC_HOME_PAGE = 'index.html';
-const DEFAULT_AUTHENTICATED_PAGE = 'dashboard.html';
-const AUTH_REQUIRED_PAGES = new Set(['dashboard.html', 'dashboard']);
-
+const IS_LOCAL = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+const API_URL = IS_LOCAL
+  ? 'http://localhost:5000/api'
+  : 'https://dants-arena.vercel.app/api';
+  
 function saveToken(token) { localStorage.setItem('dantsToken', token); }
 function saveUser(user)   { localStorage.setItem('dantsUser', JSON.stringify(user)); }
 function getToken()       { return localStorage.getItem('dantsToken'); }

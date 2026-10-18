@@ -14,7 +14,8 @@ const allowedOrigins = [
   'http://localhost:3001',
   'https://thedantsarena.com.ng',
   'https://www.thedantsarena.com.ng',
-  'https://dants-arena.netlify.app'
+  'https://dants-arena.netlify.app',
+  'https://dants-arena.vercel.app'
 ];
 
 app.use(cors({
@@ -53,9 +54,14 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ success: false, message: 'Internal server error.' });
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🏟️  Dants Arena backend running on http://localhost:${PORT}`);
-  console.log(`📡  Health check: http://localhost:${PORT}/api\n`);
-});
+// Local dev: `node server.js` still works.
+// On Vercel: this file is imported, so listen() is skipped.
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n🏟️  Dants Arena backend running on http://localhost:${PORT}`);
+    console.log(`📡  Health check: http://localhost:${PORT}/api\n`);
+  });
+}
 
+module.exports = app;
 
